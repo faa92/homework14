@@ -12,7 +12,9 @@ package by.tms.antonfedoseev.homework14.utils;
             this.rusName = rusName;
         }
 
-
+        public String getRusName() {
+            return rusName;
+        }
     }
 
 
