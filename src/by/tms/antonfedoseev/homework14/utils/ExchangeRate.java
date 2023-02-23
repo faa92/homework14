@@ -7,6 +7,8 @@ public class ExchangeRate {
     private BigDecimal rate;
 
     public ExchangeRate(Currency currency, BigDecimal rate) {
+        this.currency = currency;
+        this.rate = rate;
     }
 
     public Currency getCurrency() {
