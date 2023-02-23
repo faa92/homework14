@@ -3,7 +3,7 @@ package by.tms.antonfedoseev.homework14.utils;
 import java.math.BigDecimal;
 
 public class ExchangeService {
-    public ExchangeRate[] getTodayRate() {
+    public ExchangeRate[] getTodayRate(Currency usd) {
         return new ExchangeRate[]{
                 new ExchangeRate(Currency.USD, new BigDecimal("2,7890")),
                 new ExchangeRate(Currency.EUR, new BigDecimal("2,9789")),
