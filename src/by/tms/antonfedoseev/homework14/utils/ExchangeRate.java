@@ -3,8 +3,8 @@ package by.tms.antonfedoseev.homework14.utils;
 import java.math.BigDecimal;
 
 public class ExchangeRate {
-    private Currency currency;
-    private BigDecimal rate;
+    private final Currency currency;
+    private final BigDecimal rate;
 
     public ExchangeRate(Currency currency, BigDecimal rate) {
         this.currency = currency;

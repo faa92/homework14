@@ -1,5 +1,6 @@
 package by.tms.antonfedoseev.homework14.utils;
-    public enum Currency {
+
+public enum Currency {
         BYN("Белорусский рубль"),
         USD("Доллар США"),
         EUR("Евро"),
