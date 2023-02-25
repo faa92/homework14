@@ -1,11 +1,15 @@
 package by.tms.antonfedoseev.homework14.utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ExchangeService {
-    public ExchangeRate[] getTodayRate() {
+    private static final Currency BASE_CURRENCY = Currency.BYN;
+    public static final BigDecimal RATE_BASE_CURRENCY = BigDecimal.ONE;
+
+    public static ExchangeRate[] getTodayRate() {
         return new ExchangeRate[]{
-                new ExchangeRate(Currency.BYN, new BigDecimal("1.0")),
+                new ExchangeRate(Currency.BYN, BigDecimal.ONE),
                 new ExchangeRate(Currency.USD, new BigDecimal("2.7890")),
                 new ExchangeRate(Currency.EUR, new BigDecimal("2.9789")),
                 new ExchangeRate(Currency.GBP, new BigDecimal("3.3538")),
@@ -14,18 +18,27 @@ public class ExchangeService {
         };
     }
 
-    public BigDecimal getRate() {
-        ExchangeRate[] rates = getTodayRate();
-        BigDecimal info = null;
-        for (int i = 0; i < rates.length; i++) {
-            ExchangeRate rate = rates[i];
-            System.out.println(rates[i]);
-            info = BigDecimal.valueOf(rates[i]);
+    public static BigDecimal exchange(Currency startCurrency, BigDecimal cash, Currency endCurrency) {
+        if (cash.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Invalid cash");
         }
+        if (startCurrency == endCurrency) {
+            return cash;
+        }
+        BigDecimal inputRate = BigDecimal.ZERO;
+        BigDecimal outputRate = BigDecimal.ZERO;
 
-        return BigDecimal.valueOf(info);
+        ExchangeRate[] rates = getTodayRate();
+        for (ExchangeRate i : rates) {
+            if (startCurrency == i.getCurrency()) {
+                inputRate = i.getRate();
+            }
+            if (endCurrency == i.getCurrency()) {
+                outputRate = i.getRate();
+            }
+        }
+        return inputRate.multiply(cash).divide(outputRate, 2, RoundingMode.HALF_UP);
     }
-
 }
     
 

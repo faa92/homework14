@@ -7,6 +7,9 @@ public class ExchangeRate {
     private final BigDecimal rate;
 
     public ExchangeRate(Currency currency, BigDecimal rate) {
+        if (rate.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Invalid exchange rate");
+        }
         this.currency = currency;
         this.rate = rate;
     }
