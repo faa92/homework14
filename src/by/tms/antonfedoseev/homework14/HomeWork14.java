@@ -38,7 +38,7 @@ public class HomeWork14 {
                 Currency outputCurrency = Currency.valueOf(scanner.nextLine());
 
                 System.out.print("Input amount: ");
-                BigDecimal inputAmount = BigDecimal.valueOf(Integer.parseInt(scanner.nextLine()));
+                BigDecimal inputAmount = new BigDecimal(scanner.nextLine());
 
                 System.out.println(ExchangeService.exchange(inputCurrency, inputAmount, outputCurrency));
             }

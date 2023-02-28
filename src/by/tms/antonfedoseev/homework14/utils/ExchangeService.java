@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class ExchangeService {
-    private static final Currency BASE_CURRENCY = Currency.BYN;
-    public static final BigDecimal RATE_BASE_CURRENCY = BigDecimal.ONE;
-
     public static ExchangeRate[] getTodayRate() {
         return new ExchangeRate[]{
                 new ExchangeRate(Currency.BYN, BigDecimal.ONE),
@@ -14,7 +11,7 @@ public class ExchangeService {
                 new ExchangeRate(Currency.EUR, new BigDecimal("2.9789")),
                 new ExchangeRate(Currency.GBP, new BigDecimal("3.3538")),
                 new ExchangeRate(Currency.RUS, new BigDecimal("0.037773")),
-                new ExchangeRate(Currency.CNY, new BigDecimal("4.0654"))
+                new ExchangeRate(Currency.CNY, new BigDecimal("0.40654"))
         };
     }
 
@@ -32,9 +29,15 @@ public class ExchangeService {
         for (ExchangeRate i : rates) {
             if (startCurrency == i.getCurrency()) {
                 inputRate = i.getRate();
+                if (inputRate == null || inputRate == BigDecimal.ZERO) {
+                    throw new IllegalArgumentException("Invalid input rate");
+                }
             }
             if (endCurrency == i.getCurrency()) {
                 outputRate = i.getRate();
+                if (outputRate == null || outputRate == BigDecimal.ZERO) {
+                    throw new IllegalArgumentException("Invalid output rate");
+                }
             }
         }
         return inputRate.multiply(cash).divide(outputRate, 2, RoundingMode.HALF_UP);
